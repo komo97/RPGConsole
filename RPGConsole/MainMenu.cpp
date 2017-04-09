@@ -3,20 +3,22 @@
 #include <rlutil\rlutilJM.h>
 #include <rlutil\Entity.h>
 #include "PlayerSprite.h"
+#include "Options.h"
 
 //Entity* player;
 
 int playerSelection;
 bool keyIsPressed;
 
-enum MenuItems {
-	FirstElement,
-	StartGame,
-	Options,
-	QuitGame,
-	LastElement,
-};
-
+namespace MenuItems {
+	enum MenuItems {
+		FirstElement,
+		StartGame,
+		Options,
+		QuitGame,
+		LastElement,
+	};
+}
 void MainMenu::Start()
 {
 	//player = new Entity(CHARACTER, 0, 0);
@@ -27,7 +29,7 @@ void MainMenu::Start()
 	//player->setBackgrounds(RED, BLUE, BLUE, WHITE);
 	//player->setLife(100);
 	rlUtilJM::PlayMusicBackground("data/Final_Fantasy.flac", TRUE, 100, TRUE);
-	playerSelection = StartGame;
+	playerSelection = MenuItems::StartGame;
 	keyIsPressed = false;
 }
 
@@ -43,13 +45,13 @@ void MainMenu::Update()
 	//	player->addY(1);
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	//	player->addX(1);
-	if (playerSelection < LastElement - 1 && (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
+	if (playerSelection < MenuItems::LastElement - 1 && (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
 		sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && !keyIsPressed)
 	{
 		playerSelection++;
 		keyIsPressed = true;
 	}
-	else if (playerSelection > FirstElement + 1 && (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
+	else if (playerSelection > MenuItems::FirstElement + 1 && (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
 		sf::Keyboard::isKeyPressed(sf::Keyboard::W)) && !keyIsPressed)
 	{
 		playerSelection--;
@@ -60,6 +62,22 @@ void MainMenu::Update()
 		(!sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
 		!sf::Keyboard::isKeyPressed(sf::Keyboard::S)))
 		keyIsPressed = false;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+	{
+		switch (playerSelection)
+		{
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			Scene::ChangeScene(new Options());
+			break;
+		}
+	}
+
+
 }
 
 void MainMenu::Draw()

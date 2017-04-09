@@ -158,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Options.h" />
     <ClInclude Include="PlayerSprite.h" />
     <ClInclude Include="RPGApp.h" />
     <ClInclude Include="Scene.h" />
@@ -166,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Options.cpp" />
     <ClCompile Include="RPGApp.cpp" />
     <ClCompile Include="RPGConsole.cpp" />
     <ClCompile Include="Scene.cpp" />
