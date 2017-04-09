@@ -64,7 +64,8 @@ void Entity::InitSprite(int sizeX, int sizeY)
 
 void Entity::draw()
 {
-	rlUtilJM::AddToDrawThread(std::bind(&Entity::DrawBody,this));
+	//rlUtilJM::AddToDrawThread(std::bind(&Entity::DrawBody,this));
+	DrawBody();
 }
 
 void Entity::freeSprite()

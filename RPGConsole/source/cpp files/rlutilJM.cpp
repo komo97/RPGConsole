@@ -1,6 +1,7 @@
 #include "rlutilJM.h"
 #include "Entity.h"
 #include <chrono>
+#include <mutex>
 
 
 int rlUtilJM::SCREEN_SIZE_WIDTH;
@@ -11,20 +12,23 @@ sf::Music rlUtilJM::music;
 CONSOLE_FONT_INFOEX rlUtilJM::savedFont;
 std::queue<std::function<void()>> rlUtilJM::delegator;
 std::thread rlUtilJM::drawThread;
+bool rlUtilJM::queueIsOnUse = false;
+PCONSOLE_SCREEN_BUFFER_INFO info = new CONSOLE_SCREEN_BUFFER_INFO;
 
 void rlUtilJM::KeepScreenSize()
 {
 
 	HWND wnd = GetConsoleWindow();
 	HANDLE consoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-	PCONSOLE_SCREEN_BUFFER_INFO info;
-	info = new CONSOLE_SCREEN_BUFFER_INFO;
-	GetConsoleScreenBufferInfo(consoleOutput, info);
-
-	if (info->dwSize.X != SCREEN_SIZE_WIDTH || info->dwSize.Y != SCREEN_SIZE_HEIGHT)
+	if (queueIsOnUse == false)
 	{
-		std::string mod = "MODE CON COLS=" + std::to_string(SCREEN_SIZE_WIDTH) + " LINES=" + std::to_string(SCREEN_SIZE_HEIGHT);
-		std::system(mod.c_str());
+		GetConsoleScreenBufferInfo(consoleOutput, info);
+
+		if (info->dwSize.X != SCREEN_SIZE_WIDTH || info->dwSize.Y != SCREEN_SIZE_HEIGHT)
+		{
+			std::string mod = "MODE CON COLS=" + std::to_string(SCREEN_SIZE_WIDTH) + " LINES=" + std::to_string(SCREEN_SIZE_HEIGHT);
+			std::system(mod.c_str());
+		}
 	}
 	hidecursor();
 }
@@ -85,8 +89,8 @@ void rlUtilJM::FontSize()
 	GetCurrentConsoleFontEx(consoleOutput, FALSE, &savedFont);
 	currFont.cbSize = sizeof currFont;
 	currFont.nFont = 0;
-	currFont.dwFontSize.X = 1;
-	currFont.dwFontSize.Y = 1;
+	currFont.dwFontSize.X = 8;
+	currFont.dwFontSize.Y = 8;
 	currFont.FontFamily = FF_DONTCARE;
 	currFont.FontWeight = FW_NORMAL;
 	wcscpy_s(currFont.FaceName, L"Terminal");
@@ -133,7 +137,8 @@ void rlUtilJM::PrintBuffer()
 		{
 			if (screenBuffer[i][j].getOcupant() != lastScreenBuffer[i][j].getOcupant() &&
 				screenBuffer[i][j].getOcupant() != EMPTY &&
-				screenBuffer[i][j].getOcupant() != BAR)
+				screenBuffer[i][j].getOcupant() != BAR && lastScreenBuffer[i][j].getEntity() != nullptr &&
+				queueIsOnUse == false)
 			{
 				setEventCollisionStatus(true, lastScreenBuffer[i][j].getEntity(), screenBuffer[i][j].getEntity());
 				setEventCollisionStatus(true, screenBuffer[i][j].getEntity(), lastScreenBuffer[i][j].getEntity());
@@ -145,20 +150,27 @@ void rlUtilJM::PrintBuffer()
 				locate(j, i);
 				setColor(screenBuffer[i][j].getColor());
 				setBackgroundColor(screenBuffer[i][j].getBackground());
-				printf("%c", screenBuffer[i][j].getLetter());
+				std::cout << screenBuffer[i][j].getLetter();
+				//printf("%c", screenBuffer[i][j].getLetter());
 			}
-		}
-	}
-	for (int i = 0; i < SCREEN_SIZE_HEIGHT; ++i)
-	{
-		for (int j = 0; j < SCREEN_SIZE_WIDTH; ++j)
-		{
 			lastScreenBuffer[i][j].setBackground(screenBuffer[i][j].getBackground());
 			lastScreenBuffer[i][j].setColor(screenBuffer[i][j].getColor());
 			lastScreenBuffer[i][j].setChar(screenBuffer[i][j].getLetter());
 			lastScreenBuffer[i][j].setOcupant(screenBuffer[i][j].getOcupant());
 		}
 	}
+
+	ClearBuffer();
+	//for (int i = 0; i < SCREEN_SIZE_HEIGHT; ++i)
+	//{
+	//	for (int j = 0; j < SCREEN_SIZE_WIDTH; ++j)
+	//	{
+	//		lastScreenBuffer[i][j].setBackground(screenBuffer[i][j].getBackground());
+	//		lastScreenBuffer[i][j].setColor(screenBuffer[i][j].getColor());
+	//		lastScreenBuffer[i][j].setChar(screenBuffer[i][j].getLetter());
+	//		lastScreenBuffer[i][j].setOcupant(screenBuffer[i][j].getOcupant());
+	//	}
+	//}
 }
 
 void rlUtilJM::CreateFakeScreenBuffer()
@@ -208,8 +220,12 @@ int ** rlUtilJM::InitSpriteArray(int y, int x)
 
 void rlUtilJM::AddToDrawThread(std::function<void()> funct)
 {
-	//drawThread += std::thread(funct);
-	delegator.push(funct);
+	if (queueIsOnUse == false)
+	{
+		queueIsOnUse = true;
+		delegator.push(funct);
+		queueIsOnUse = false;
+	}
 
 }
 
@@ -220,20 +236,23 @@ void rlUtilJM::setEventCollisionStatus(bool _status, Entity * collisioned, Entit
 
 void rlUtilJM::executeDraw()
 {
-	drawThread.detach();
+
 	while (1)
 	{
-		if (delegator.empty())
+		if (delegator.size() <= 0 || queueIsOnUse == true)
 		{
-			std::this_thread::sleep_for(std::chrono::milliseconds(11));
+			std::this_thread::sleep_for(std::chrono::milliseconds(16));
 			continue;
 		}
+		queueIsOnUse = true;
 		delegator.front()();
 		delegator.pop();
+		queueIsOnUse = false;
 	}
 }
 
 void rlUtilJM::startDrawThread(std::function<void()> funct)
 {
 	drawThread = std::thread(funct);
+	drawThread.detach();
 }

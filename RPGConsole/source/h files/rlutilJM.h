@@ -170,6 +170,7 @@ private:
 	static std::thread drawThread;
 	static std::queue<std::function<void()>> delegator;
 	static CONSOLE_FONT_INFOEX savedFont;
+	static bool queueIsOnUse;
 
 	///<summary>
 	///Sets the collision status for every Entity in screen.

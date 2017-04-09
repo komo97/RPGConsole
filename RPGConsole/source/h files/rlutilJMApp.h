@@ -5,7 +5,7 @@
 #include "rlutilJM.h"
 
 using namespace rlutilJM;
-class rlUtilJMApp : rlUtilJM
+class rlUtilJMApp : protected rlUtilJM
 {
 public:
 	///<summary>
@@ -30,6 +30,7 @@ public:
 	///</summary>
 	void App(int windowWidthInPixels, int windowHeightInPixels);
 
+	static void OnClose();
 private:
 
 	///<summary>
@@ -40,7 +41,6 @@ private:
 	///<summary>
 	///This function is called once the window receives a signal to close
 	///</summary>
-	static void OnClose();
 
 	///<summary>
 	///This function is called at the end of the frame

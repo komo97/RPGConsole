@@ -10,14 +10,14 @@ void rlUtilJMApp::Start()
 {
 
 	DrawStep();
-	rlUtilJM::AddToDrawThread(std::bind(&rlUtilJMApp::Draw,this));
+	Draw();
 }
 
 void rlUtilJMApp::Update()
 {
-	rlUtilJM::AddToDrawThread(rlUtilJM::ClearBuffer);
+	//rlUtilJM::AddToDrawThread(rlUtilJM::ClearBuffer);
 	rlUtilJM::KeepScreenSize();
-	rlUtilJM::AddToDrawThread(std::bind(&rlUtilJMApp::Draw, this));
+	Draw();
 }
 
 void rlUtilJMApp::OnClose()
@@ -28,6 +28,7 @@ void rlUtilJMApp::OnClose()
 void rlUtilJMApp::EndOfFrame()
 {
 	rlUtilJM::AddToDrawThread(rlUtilJM::PrintBuffer);
+	msleep(16);
 }
 
 void rlUtilJMApp::App(int windowWidthInPixels, int windowHeightInPixels)
@@ -39,7 +40,6 @@ void rlUtilJMApp::App(int windowWidthInPixels, int windowHeightInPixels)
 	while (1)
 	{
 		this->Update();
-		std::atexit(rlUtilJMApp::OnClose);
 		EndOfFrame();
 	}
 
