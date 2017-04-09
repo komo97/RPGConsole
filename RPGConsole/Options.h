@@ -9,4 +9,7 @@ protected:
 	void Start() final;
 private:
 	bool musicIsPlaying, keyIsPressed;
+	char* volume;
+	int playerSelection;
+	//class MainMenu;
 };

@@ -30,11 +30,7 @@ public:
 	///</summary>
 	void App(int windowWidthInPixels, int windowHeightInPixels);
 
-	///<summary>
-	///This function is called once the window receives a signal to close
-	///</summary>
 	static void OnClose();
-
 private:
 
 	///<summary>
@@ -42,6 +38,9 @@ private:
 	///</summary>
 	void DrawStep();
 
+	///<summary>
+	///This function is called once the window receives a signal to close
+	///</summary>
 
 	///<summary>
 	///This function is called at the end of the frame

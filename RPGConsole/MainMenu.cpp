@@ -7,13 +7,13 @@
 
 //Entity* player;
 
-int playerSelection;
-bool keyIsPressed;
+
 
 namespace MenuItems {
 	enum MenuItems {
 		FirstElement,
 		StartGame,
+		LoadGame,
 		Options,
 		QuitGame,
 		LastElement,
@@ -28,7 +28,10 @@ void MainMenu::Start()
 	//player->setLetters('1', '2', '3', '4');
 	//player->setBackgrounds(RED, BLUE, BLUE, WHITE);
 	//player->setLife(100);
-	rlUtilJM::PlayMusicBackground("data/Final_Fantasy.flac", TRUE, 100, TRUE);
+	if(!rlUtilJM::BackgroundMusicIsPaused() &&
+		!rlUtilJM::BackgroundMusicIsPlaying())
+		rlUtilJM::PlayMusicBackground("data/Final_Fantasy.flac", TRUE, 100, FALSE);
+
 	playerSelection = MenuItems::StartGame;
 	keyIsPressed = false;
 }
@@ -67,11 +70,11 @@ void MainMenu::Update()
 	{
 		switch (playerSelection)
 		{
-		case 1:
+		case MenuItems::StartGame:
 			break;
-		case 2:
+		case MenuItems::LoadGame:
 			break;
-		case 3:
+		case MenuItems::Options:
 			Scene::ChangeScene(new Options());
 			break;
 		}
@@ -84,12 +87,15 @@ void MainMenu::Draw()
 {
 	//player->draw();
 	rlUtilJM::TextWrapper("     Start Game     ",
-		playerSelection == 1 ? BLACK : WHITE, playerSelection == 1 ? WHITE : BLACK,
+		playerSelection == MenuItems::StartGame ? BLACK : WHITE,
+		playerSelection == MenuItems::StartGame ? WHITE : BLACK,
 		(rlUtilJM::getScreenWidth() / 2) - 10, rlUtilJM::getScreenHeight()/2);
 	rlUtilJM::TextWrapper("      Load Game     ",
-		playerSelection == 2 ? BLACK : WHITE, playerSelection == 2 ? WHITE : BLACK,
+		playerSelection == MenuItems::LoadGame ? BLACK : WHITE,
+		playerSelection == MenuItems::LoadGame ? WHITE : BLACK,
 		(rlUtilJM::getScreenWidth() / 2) - 10, (rlUtilJM::getScreenHeight() / 2) +1);
 	rlUtilJM::TextWrapper("       Options      ",
-		playerSelection == 3 ? BLACK : WHITE, playerSelection == 3 ? WHITE : BLACK,
+		playerSelection == MenuItems::Options ? BLACK : WHITE,
+		playerSelection == MenuItems::Options ? WHITE : BLACK,
 		(rlUtilJM::getScreenWidth() / 2) - 10, (rlUtilJM::getScreenHeight() / 2) + 2);
 }
