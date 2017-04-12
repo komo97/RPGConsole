@@ -7,6 +7,7 @@
 #include <rlutil/Bar.h>
 #include "RPGApp.h"
 
+
 int main()
 {
 	RPGApp app;
