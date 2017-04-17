@@ -77,6 +77,9 @@ void MainMenu::Update()
 		case MenuItems::Options:
 			Scene::ChangeScene(new Options());
 			break;
+		case MenuItems::QuitGame:
+			exit(0);
+			break;
 		}
 	}
 
@@ -98,4 +101,8 @@ void MainMenu::Draw()
 		playerSelection == MenuItems::Options ? BLACK : WHITE,
 		playerSelection == MenuItems::Options ? WHITE : BLACK,
 		(rlUtilJM::getScreenWidth() / 2) - 10, (rlUtilJM::getScreenHeight() / 2) + 2);
+	rlUtilJM::TextWrapper("      Quit Game     ",
+		playerSelection == MenuItems::QuitGame ? BLACK : WHITE,
+		playerSelection == MenuItems::QuitGame ? WHITE : BLACK,
+		(rlUtilJM::getScreenWidth() / 2) - 10, (rlUtilJM::getScreenHeight() / 2) + 3);
 }
