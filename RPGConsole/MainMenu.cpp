@@ -2,12 +2,7 @@
 #include "MainMenu.h"
 #include <rlutil\rlutilJM.h>
 #include <rlutil\Entity.h>
-#include "PlayerSprite.h"
 #include "Options.h"
-
-//Entity* player;
-
-
 
 namespace MenuItems {
 	enum MenuItems {
@@ -21,13 +16,6 @@ namespace MenuItems {
 }
 void MainMenu::Start()
 {
-	//player = new Entity(CHARACTER, 0, 0);
-	//player->InitSprite(25, 25);
-	//player->setSprite(PlayerSprite1());
-	//player->setColors(RED, BLUE, WHITE, BLACK);
-	//player->setLetters('1', '2', '3', '4');
-	//player->setBackgrounds(RED, BLUE, BLUE, WHITE);
-	//player->setLife(100);
 	if(!rlUtilJM::BackgroundMusicIsPaused() &&
 		!rlUtilJM::BackgroundMusicIsPlaying())
 		rlUtilJM::PlayMusicBackground("data/Final_Fantasy.flac", TRUE, 100, FALSE);
@@ -38,16 +26,7 @@ void MainMenu::Start()
 
 void MainMenu::Update()
 {
-	//rlUtilJM::TextWrapper("Main Menu", RED, BLUE, 20, 20);
 
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	//	player->addY(-1);
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	//	player->addX(-1);
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	//	player->addY(1);
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	//	player->addX(1);
 	if (playerSelection < MenuItems::LastElement - 1 && (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
 		sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && !keyIsPressed)
 	{
@@ -75,11 +54,12 @@ void MainMenu::Update()
 		case MenuItems::LoadGame:
 			break;
 		case MenuItems::Options:
+			//player->freeSprite();
 			Scene::ChangeScene(new Options());
 			break;
 		case MenuItems::QuitGame:
+			//player->freeSprite();
 			exit(0);
-			break;
 		}
 	}
 
@@ -88,7 +68,7 @@ void MainMenu::Update()
 
 void MainMenu::Draw()
 {
-	//player->draw();
+
 	rlUtilJM::TextWrapper("     Start Game     ",
 		playerSelection == MenuItems::StartGame ? BLACK : WHITE,
 		playerSelection == MenuItems::StartGame ? WHITE : BLACK,
