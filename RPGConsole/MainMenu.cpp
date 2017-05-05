@@ -3,6 +3,7 @@
 #include <rlutil\rlutilJM.h>
 #include <rlutil\Entity.h>
 #include "Options.h"
+#include "Level1.h"
 
 namespace MenuItems {
 	enum MenuItems {
@@ -50,6 +51,7 @@ void MainMenu::Update()
 		switch (playerSelection)
 		{
 		case MenuItems::StartGame:
+			Scene::ChangeScene(new Level1());
 			break;
 		case MenuItems::LoadGame:
 			break;
@@ -85,4 +87,5 @@ void MainMenu::Draw()
 		playerSelection == MenuItems::QuitGame ? BLACK : WHITE,
 		playerSelection == MenuItems::QuitGame ? WHITE : BLACK,
 		(rlUtilJM::getScreenWidth() / 2) - 10, (rlUtilJM::getScreenHeight() / 2) + 3);
+
 }
