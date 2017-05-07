@@ -22,7 +22,8 @@ void MainMenu::Start()
 		rlUtilJM::PlayMusicBackground("data/Final_Fantasy.flac", TRUE, 100, FALSE);
 
 	playerSelection = MenuItems::StartGame;
-	keyIsPressed = false;
+	keyIsPressed = true;
+	rlUtilJM::ShouldClearScreen(true);
 }
 
 void MainMenu::Update()
@@ -32,21 +33,13 @@ void MainMenu::Update()
 		sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && !keyIsPressed)
 	{
 		playerSelection++;
-		keyIsPressed = true;
 	}
 	else if (playerSelection > MenuItems::FirstElement + 1 && (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
 		sf::Keyboard::isKeyPressed(sf::Keyboard::W)) && !keyIsPressed)
 	{
 		playerSelection--;
-		keyIsPressed = true;
 	}
-	else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-		!sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-		(!sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
-		!sf::Keyboard::isKeyPressed(sf::Keyboard::S)))
-		keyIsPressed = false;
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && !keyIsPressed)
 	{
 		switch (playerSelection)
 		{
@@ -64,6 +57,13 @@ void MainMenu::Update()
 			exit(0);
 		}
 	}
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
+		!sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
+		(!sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
+		!sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && 
+		!sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+		keyIsPressed = false;
+	else keyIsPressed = true;
 
 
 }
@@ -72,20 +72,20 @@ void MainMenu::Draw()
 {
 
 	rlUtilJM::TextWrapper("     Start Game     ",
-		playerSelection == MenuItems::StartGame ? BLACK : WHITE,
-		playerSelection == MenuItems::StartGame ? WHITE : BLACK,
+		playerSelection == MenuItems::StartGame ? LBASEBLACK : LBASEWHITE,
+		playerSelection == MenuItems::StartGame ? BBASEWHITE : BBASEBLACK,
 		(rlUtilJM::getScreenWidth() / 2) - 10, rlUtilJM::getScreenHeight()/2);
 	rlUtilJM::TextWrapper("      Load Game     ",
-		playerSelection == MenuItems::LoadGame ? BLACK : WHITE,
-		playerSelection == MenuItems::LoadGame ? WHITE : BLACK,
+		playerSelection == MenuItems::LoadGame ? LBASEBLACK : LBASEWHITE,
+		playerSelection == MenuItems::LoadGame ? BBASEWHITE : BBASEBLACK,
 		(rlUtilJM::getScreenWidth() / 2) - 10, (rlUtilJM::getScreenHeight() / 2) +1);
 	rlUtilJM::TextWrapper("       Options      ",
-		playerSelection == MenuItems::Options ? BLACK : WHITE,
-		playerSelection == MenuItems::Options ? WHITE : BLACK,
+		playerSelection == MenuItems::Options ? LBASEBLACK : LBASEWHITE,
+		playerSelection == MenuItems::Options ? BBASEWHITE : BBASEBLACK,
 		(rlUtilJM::getScreenWidth() / 2) - 10, (rlUtilJM::getScreenHeight() / 2) + 2);
 	rlUtilJM::TextWrapper("      Quit Game     ",
-		playerSelection == MenuItems::QuitGame ? BLACK : WHITE,
-		playerSelection == MenuItems::QuitGame ? WHITE : BLACK,
+		playerSelection == MenuItems::QuitGame ? LBASEBLACK : LBASEWHITE,
+		playerSelection == MenuItems::QuitGame ? BBASEWHITE : BBASEBLACK,
 		(rlUtilJM::getScreenWidth() / 2) - 10, (rlUtilJM::getScreenHeight() / 2) + 3);
 
 }

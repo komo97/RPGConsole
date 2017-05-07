@@ -6,12 +6,13 @@
 #include <rlutil/Entity.h>
 #include <rlutil/Bar.h>
 #include "RPGApp.h"
-
+#include <Windows.h>
 
 int main()
 {
 	RPGApp app;
-	app.App(100, 100);
+
+	app.App(240, 127,"RPG Console");
 	std::atexit(rlUtilJMApp::OnClose);
     return 0;
 }

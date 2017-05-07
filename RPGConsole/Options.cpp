@@ -73,24 +73,24 @@ void Options::Update()
 void Options::Draw()
 {
 	rlUtilJM::TextWrapper("     Play Music?     ",
-		playerSelection == OptionItems::PlayMusic ? BLACK : WHITE,
-		playerSelection == OptionItems::PlayMusic ? WHITE : BLACK,
+		playerSelection == OptionItems::PlayMusic ? LBASEBLACK : LBASEWHITE,
+		playerSelection == OptionItems::PlayMusic ? BBASEWHITE : BBASEBLACK,
 		(rlUtilJM::getScreenWidth() / 2) - 16, (rlUtilJM::getScreenHeight() / 2));
 	rlUtilJM::TextWrapper(musicIsPlaying ? "TRUE" : "FALSE",
-		playerSelection == OptionItems::PlayMusic ? BLACK : WHITE,
-		playerSelection == OptionItems::PlayMusic ? WHITE : BLACK,
+		playerSelection == OptionItems::PlayMusic ? LBASEBLACK : LBASEWHITE,
+		playerSelection == OptionItems::PlayMusic ? BBASEWHITE : BBASEBLACK,
 		(rlUtilJM::getScreenWidth() / 2) + 16, (rlUtilJM::getScreenHeight() / 2));
 	rlUtilJM::TextWrapper("     Music Volume    ",
-		playerSelection == OptionItems::ChangeMusicVolume ? BLACK : WHITE,
-		playerSelection == OptionItems::ChangeMusicVolume ? WHITE : BLACK,
+		playerSelection == OptionItems::ChangeMusicVolume ? LBASEBLACK : LBASEWHITE,
+		playerSelection == OptionItems::ChangeMusicVolume ? BBASEWHITE : BBASEBLACK,
 		(rlUtilJM::getScreenWidth() / 2) - 16, (rlUtilJM::getScreenHeight() / 2) + 1);
 	rlUtilJM::TextWrapper(volume,
-		playerSelection == OptionItems::ChangeMusicVolume ? BLACK : WHITE,
-		playerSelection == OptionItems::ChangeMusicVolume ? WHITE : BLACK,
+		playerSelection == OptionItems::ChangeMusicVolume ? LBASEBLACK : LBASEWHITE,
+		playerSelection == OptionItems::ChangeMusicVolume ? BBASEWHITE : BBASEBLACK,
 		(rlUtilJM::getScreenWidth() / 2) + 16, (rlUtilJM::getScreenHeight() / 2) + 1);
 	rlUtilJM::TextWrapper("     Main Menu       ",
-		playerSelection == OptionItems::MainMenuOption ? BLACK : WHITE,
-		playerSelection == OptionItems::MainMenuOption ? WHITE : BLACK,
+		playerSelection == OptionItems::MainMenuOption ? LBASEBLACK : LBASEWHITE,
+		playerSelection == OptionItems::MainMenuOption ? BBASEWHITE : BBASEBLACK,
 		(rlUtilJM::getScreenWidth() / 2) - 16, (rlUtilJM::getScreenHeight() / 2 + 2));
 }
 

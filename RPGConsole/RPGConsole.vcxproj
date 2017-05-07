@@ -22,7 +22,7 @@
     <ProjectGuid>{430E2129-9C78-40D4-9F5D-2D75B4A44B5B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>RPGConsole</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -163,6 +163,33 @@
     <ClInclude Include="PlayerSprite.h" />
     <ClInclude Include="RPGApp.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="sprites\stuff1x1.h" />
+    <ClInclude Include="sprites\stuff1x2.h" />
+    <ClInclude Include="sprites\stuff1x3.h" />
+    <ClInclude Include="sprites\stuff1x4.h" />
+    <ClInclude Include="sprites\stuff1x5.h" />
+    <ClInclude Include="sprites\stuff2x1.h" />
+    <ClInclude Include="sprites\stuff2x2.h" />
+    <ClInclude Include="sprites\stuff2x3.h" />
+    <ClInclude Include="sprites\stuff2x4.h" />
+    <ClInclude Include="sprites\stuff2x5.h" />
+    <ClInclude Include="sprites\stuff3x1.h" />
+    <ClInclude Include="sprites\stuff3x2.h" />
+    <ClInclude Include="sprites\stuff3x3.h" />
+    <ClInclude Include="sprites\stuff3x4.h" />
+    <ClInclude Include="sprites\stuff3x5.h" />
+    <ClInclude Include="sprites\stuff4c1.h" />
+    <ClInclude Include="sprites\stuff4x1.h" />
+    <ClInclude Include="sprites\stuff4x2.h" />
+    <ClInclude Include="sprites\stuff4x3.h" />
+    <ClInclude Include="sprites\stuff4x4.h" />
+    <ClInclude Include="sprites\stuff4x5.h" />
+    <ClInclude Include="sprites\stuff5x1.h" />
+    <ClInclude Include="sprites\stuff5x2.h" />
+    <ClInclude Include="sprites\stuff5x3.h" />
+    <ClInclude Include="sprites\stuff5x4.h" />
+    <ClInclude Include="sprites\stuff5x5.h" />
+    <ClInclude Include="sprites\stuffbg.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

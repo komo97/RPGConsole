@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "rlutil\Entity.h"
+#include <vector>
 
 class Level1 : public Scene {
 public:
@@ -10,4 +11,6 @@ protected:
 	void Start() final;
 private:
 	Entity* player;
+	std::vector<Entity*> bg;
+	std::vector<int**> sprites;
 };
