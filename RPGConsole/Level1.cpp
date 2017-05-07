@@ -27,6 +27,10 @@
 #include "sprites\stuff5x3.h"
 #include "sprites\stuff5x4.h"
 #include "sprites\stuff5x5.h"
+#include "sprites\stuffFogat1x1.h"
+#include "sprites\stuffFogat1x2.h"
+#include "sprites\stuffTron1x1.h"
+#include "sprites\stuffTron1x2.h"
 
 ColorPalette test;
 
@@ -51,7 +55,7 @@ void Level1::Update()
 		//	player->addX(1);
 		//	player->setSprite(PlayerSprite1());
 		//}
-		//rlUtilJM::ShouldClearScreen(true);
+		rlUtilJM::ShouldClearScreen(true);
 	}
 	else rlUtilJM::ShouldClearScreen(false);
 	//for (int i = 16; i-- > 1;)
@@ -61,8 +65,7 @@ void Level1::Update()
 
 void Level1::Draw()
 {
-	for (auto i : bg)
-		i->draw();
+
 	//player->draw();
 	//rlUtilJM::TextWrapper("A", LBASEBLACK, BBASEWHITE, 50, 1);
 	//rlUtilJM::TextWrapper("B", LBASEBLUE, BBASEWHITE, 50, 2);
@@ -107,6 +110,31 @@ void Level1::Start()
 	player->setBackgrounds(BBASEGREEN, BBASEGREEN, BBASEMAGENTA, BBASEMAGENTA);
 	player->setLife(100);
 	player->setSprite(PlayerSprite1());
+	fireplace = new Entity(RLBACKGROUND, 70, 30);
+	fireplace->InitSprite(61, 69);
+	fireplace->setColors(ALPHACOLOR, ALPHACOLOR, ALPHACOLOR, ALPHACOLOR);
+	fireplace->setLetters('\0', '\0', '\0', '\0');
+	fireplace->setBackgrounds(BBASEYELLOW, BBASERED, BBASEBLACK, ALPHACOLOR);
+	fireplace->setSprite(stuffFogat1x1::FillSprite());
+	rock = new Entity(RLBACKGROUND, rlUtilJM::getScreenWidth()-50, 35);
+	rock->InitSprite(51, 48);
+	rock->setColors(ALPHACOLOR, ALPHACOLOR, ALPHACOLOR, ALPHACOLOR);
+	rock->setLetters('\0', '\0', '\0', '\0');
+	rock->setBackgrounds(BBASEDARKGREY, BBASEGREY, BBASEBLACK, BBASEMAGENTA);
+	rock->setSprite(stuffFogat1x2::FillSprite());
+	log = new Entity(RLBACKGROUND, 0, rlUtilJM::getScreenHeight() - 35);
+	log->InitSprite(107, 35);
+	log->setColors(ALPHACOLOR, ALPHACOLOR, ALPHACOLOR, ALPHACOLOR);
+	log->setLetters('\0', '\0', '\0', '\0');
+	log->setBackgrounds(BBASEBLACK, BBASERED, BBASEBLACK, BBASEMAGENTA);
+	log->setSprite(stuffTron1x1::FillSprite());
+	girl = new Entity(RLBACKGROUND, rlUtilJM::getScreenWidth() - 96, rlUtilJM::getScreenHeight() - 93);
+	girl->InitSprite(89, 93);
+	girl->setColors(ALPHACOLOR, ALPHACOLOR, ALPHACOLOR, ALPHACOLOR);
+	girl->setLetters('\0', '\0', '\0', '\0');
+	girl->setBackgrounds(BBASEBROWN, BBASEBLACK, BBASEYELLOW, BBASEMAGENTA);
+	girl->setSprite(stuffTron1x2::FillSprite());
+
 	sprites.push_back(stuff1x1::FillSprite());
 	sprites.push_back(stuff1x2::FillSprite());
 	sprites.push_back(stuff1x3::FillSprite());
@@ -132,7 +160,6 @@ void Level1::Start()
 	sprites.push_back(stuff5x3::FillSprite());
 	sprites.push_back(stuff5x4::FillSprite());
 	sprites.push_back(stuff5x5::FillSprite());
-
 	for (int i = 0; i < 5; ++i)
 	{
 		for (int j = 0; j < 5; ++j)
@@ -161,4 +188,11 @@ void Level1::Start()
 	bg[22]->setBackgrounds(BBASERED, BBASEGREY, BBASEWHITE, BBASEBLACK);
 	bg[23]->setBackgrounds(BBASERED, BBASEGREY, BBASEWHITE, BBASEBLACK);
 
+
+	for (auto i : bg)
+		i->draw();
+	rock->draw();
+	log->draw();
+	girl->draw();
+	fireplace->draw();
 }

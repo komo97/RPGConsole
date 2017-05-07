@@ -11,6 +11,10 @@ protected:
 	void Start() final;
 private:
 	Entity* player;
+	Entity* fireplace;
+	Entity* rock;
+	Entity* log;
+	Entity* girl;
 	std::vector<Entity*> bg;
 	std::vector<int**> sprites;
 };
