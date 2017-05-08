@@ -41,23 +41,23 @@ void Level1::Update()
 		sf::Keyboard::isKeyPressed(sf::Keyboard::S) ||
 		sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		//	player->addY(-1);
-		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		//{
-		//	player->addX(-1);
-		//	player->setSprite(sprites[0]);
-		//}
-		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		//	player->addY(1);
-		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		//{
-		//	player->addX(1);
-		//	player->setSprite(PlayerSprite1());
-		//}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+			player->addY(-1);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			player->addX(-1);
+			player->setSprite(sprites[0]);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			player->addY(1);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			player->addX(1);
+			player->setSprite(PlayerSprite1());
+		}
 		rlUtilJM::ShouldClearScreen(true);
 	}
-	else rlUtilJM::ShouldClearScreen(false);
+	else rlUtilJM::ShouldClearScreen(true);
 	//for (int i = 16; i-- > 1;)
 	//	test.SetColorRGB(i, rand() % 255, rand() % 255, rand() % 255);
  //	rlUtilJM::ChangeColorPalette(test);
@@ -65,8 +65,13 @@ void Level1::Update()
 
 void Level1::Draw()
 {
-
-	//player->draw();
+	for (auto i : bg)
+		i->draw();
+	rock->draw();
+	log->draw();
+	girl->draw();
+	fireplace->draw();
+	player->draw();
 	//rlUtilJM::TextWrapper("A", LBASEBLACK, BBASEWHITE, 50, 1);
 	//rlUtilJM::TextWrapper("B", LBASEBLUE, BBASEWHITE, 50, 2);
 	//rlUtilJM::TextWrapper("C", LBASEGREEN, BBASEWHITE, 50, 3);
@@ -110,30 +115,35 @@ void Level1::Start()
 	player->setBackgrounds(BBASEGREEN, BBASEGREEN, BBASEMAGENTA, BBASEMAGENTA);
 	player->setLife(100);
 	player->setSprite(PlayerSprite1());
+	player->setIsStatic(false);
 	fireplace = new Entity(RLBACKGROUND, 70, 30);
 	fireplace->InitSprite(61, 69);
 	fireplace->setColors(ALPHACOLOR, ALPHACOLOR, ALPHACOLOR, ALPHACOLOR);
 	fireplace->setLetters('\0', '\0', '\0', '\0');
 	fireplace->setBackgrounds(BBASEYELLOW, BBASERED, BBASEBLACK, ALPHACOLOR);
 	fireplace->setSprite(stuffFogat1x1::FillSprite());
+	fireplace->setIsStatic(true);
 	rock = new Entity(RLBACKGROUND, rlUtilJM::getScreenWidth()-50, 35);
 	rock->InitSprite(51, 48);
 	rock->setColors(ALPHACOLOR, ALPHACOLOR, ALPHACOLOR, ALPHACOLOR);
 	rock->setLetters('\0', '\0', '\0', '\0');
 	rock->setBackgrounds(BBASEDARKGREY, BBASEGREY, BBASEBLACK, BBASEMAGENTA);
 	rock->setSprite(stuffFogat1x2::FillSprite());
+	rock->setIsStatic(true);
 	log = new Entity(RLBACKGROUND, 0, rlUtilJM::getScreenHeight() - 35);
 	log->InitSprite(107, 35);
 	log->setColors(ALPHACOLOR, ALPHACOLOR, ALPHACOLOR, ALPHACOLOR);
 	log->setLetters('\0', '\0', '\0', '\0');
 	log->setBackgrounds(BBASEBLACK, BBASERED, BBASEBLACK, BBASEMAGENTA);
 	log->setSprite(stuffTron1x1::FillSprite());
+	log->setIsStatic(true);
 	girl = new Entity(RLBACKGROUND, rlUtilJM::getScreenWidth() - 96, rlUtilJM::getScreenHeight() - 93);
 	girl->InitSprite(89, 93);
 	girl->setColors(ALPHACOLOR, ALPHACOLOR, ALPHACOLOR, ALPHACOLOR);
 	girl->setLetters('\0', '\0', '\0', '\0');
 	girl->setBackgrounds(BBASEBROWN, BBASEBLACK, BBASEYELLOW, BBASEMAGENTA);
 	girl->setSprite(stuffTron1x2::FillSprite());
+	girl->setIsStatic(true);
 
 	sprites.push_back(stuff1x1::FillSprite());
 	sprites.push_back(stuff1x2::FillSprite());
@@ -176,6 +186,7 @@ void Level1::Start()
 		i->setBackgrounds(BBASERED, BBASEGREY, BBASEMAGENTA, BBASEBLACK);
 		i->InitSprite(48, 25);
 		i->setSprite(sprites[j++]);
+		i->setIsStatic(true);
 	}
 	bg[12]->setBackgrounds(BBASERED, BBASEGREY, BBASEWHITE, BBASEBLACK);
 	bg[15]->setBackgrounds(BBASERED, BBASEGREY, BBASEWHITE, BBASEBLACK);
@@ -189,10 +200,5 @@ void Level1::Start()
 	bg[23]->setBackgrounds(BBASERED, BBASEGREY, BBASEWHITE, BBASEBLACK);
 
 
-	for (auto i : bg)
-		i->draw();
-	rock->draw();
-	log->draw();
-	girl->draw();
-	fireplace->draw();
+
 }

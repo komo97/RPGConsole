@@ -12,7 +12,7 @@ int main()
 {
 	RPGApp app;
 
-	app.App(240, 127,"RPG Console");
+	app.App(240, 126,"RPG Console");
 	std::atexit(rlUtilJMApp::OnClose);
     return 0;
 }

@@ -266,7 +266,13 @@ public:
 
 	static void ChangeWindowTitle(const char* title);
 
-	static void ShouldClearScreen(bool cls = true);
+	static void ShouldClearScreen(const bool& cls = true);
+
+	static void SetStaticTile(const bool& _static, const int& x, const int& y);
+
+	static void CleanEntities();
+
+	static void SetDrawnTile(const bool& _drawn, const int& x, const int& y);
 
 private:
 	static int SCREEN_SIZE_WIDTH;
@@ -310,7 +316,6 @@ private:
 	///</summary>
 	static void CreateFakeScreenBuffer();
 
-	static void CleanEntities();
 
 protected:
 
