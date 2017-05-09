@@ -3,6 +3,7 @@
 #include "rlutil\rlutilJM.h"
 
 Scene* Scene::currentScene;
+std::vector<std::vector<int**>> Scene::spritesHolder;
 Scene::Scene()
 {
 	currentScene = NULL;
@@ -25,6 +26,13 @@ void Scene::Update()
 
 void Scene::EndScene()
 {
+	for (auto i : spritesHolder) {
+		for (auto j : i) {
+			delete j;
+		}
+	}
+	spritesHolder.clear();
+	rlUtilJM::ForceClearScreen();
 	if (currentScene != NULL) {
 		delete currentScene;
 		rlUtilJM::CleanEntities();

@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 class Scene {
 public:
 	Scene();
@@ -11,5 +12,6 @@ private:
 	static Scene* currentScene;
 protected:
 	virtual void Start();
+	static std::vector<std::vector<int**>> spritesHolder;
 
 };

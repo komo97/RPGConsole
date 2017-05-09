@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Level1.h"
-#include "PlayerSprite.h"
 #include "rlutil\ColorPalette.h"
 #include "sprites\stuff1x1.h"
 #include "sprites\stuff1x2.h"
@@ -31,33 +30,35 @@
 #include "sprites\stuffFogat1x2.h"
 #include "sprites\stuffTron1x1.h"
 #include "sprites\stuffTron1x2.h"
+#include "Level2.h"
 
-ColorPalette test;
 
 void Level1::Update()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) ||
-		sf::Keyboard::isKeyPressed(sf::Keyboard::A) ||
-		sf::Keyboard::isKeyPressed(sf::Keyboard::S) ||
-		sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-			player->addY(-1);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		{
-			player->addX(-1);
-			player->setSprite(sprites[0]);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			player->addY(1);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		{
-			player->addX(1);
-			player->setSprite(PlayerSprite1());
-		}
-		rlUtilJM::ShouldClearScreen(true);
-	}
-	else rlUtilJM::ShouldClearScreen(true);
+	if (++count == 60)
+		ChangeScene(new Level2());
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) ||
+	//	sf::Keyboard::isKeyPressed(sf::Keyboard::A) ||
+	//	sf::Keyboard::isKeyPressed(sf::Keyboard::S) ||
+	//	sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	//{
+	//	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	//		player->addY(-1);
+	//	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	//	{
+	//		player->addX(-1);
+	//		player->setSprite(sprites[0]);
+	//	}
+	//	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	//		player->addY(1);
+	//	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	//	{
+	//		player->addX(1);
+	//		player->setSprite(PlayerSprite1());
+	//	}
+	//	rlUtilJM::ShouldClearScreen(true);
+	//}
+	//else rlUtilJM::ShouldClearScreen(true);
 	//for (int i = 16; i-- > 1;)
 	//	test.SetColorRGB(i, rand() % 255, rand() % 255, rand() % 255);
  //	rlUtilJM::ChangeColorPalette(test);
@@ -71,7 +72,7 @@ void Level1::Draw()
 	log->draw();
 	girl->draw();
 	fireplace->draw();
-	player->draw();
+	//player->draw();
 	//rlUtilJM::TextWrapper("A", LBASEBLACK, BBASEWHITE, 50, 1);
 	//rlUtilJM::TextWrapper("B", LBASEBLUE, BBASEWHITE, 50, 2);
 	//rlUtilJM::TextWrapper("C", LBASEGREEN, BBASEWHITE, 50, 3);
@@ -108,14 +109,15 @@ void Level1::Draw()
 
 void Level1::Start()
 {
-	player = new Entity(RLCHARACTER, 0, 0);
-	player->InitSprite(25, 23);
-	player->setColors(LBASEGREEN, LBASEGREEN, LBASEMAGENTA, LBASEMAGENTA);
-	player->setLetters('\0', '\0', '\0', '\0');
-	player->setBackgrounds(BBASEGREEN, BBASEGREEN, BBASEMAGENTA, BBASEMAGENTA);
-	player->setLife(100);
-	player->setSprite(PlayerSprite1());
-	player->setIsStatic(false);
+	//player = new Entity(RLCHARACTER, 0, 0);
+	//player->InitSprite(25, 23);
+	//player->setColors(LBASEGREEN, LBASEGREEN, LBASEMAGENTA, LBASEMAGENTA);
+	//player->setLetters('\0', '\0', '\0', '\0');
+	//player->setBackgrounds(BBASEGREEN, BBASEGREEN, BBASEMAGENTA, BBASEMAGENTA);
+	//player->setLife(100);
+	//player->setSprite(PlayerSprite1());
+	//player->setIsStatic(false);
+	isKeyPressed = true;
 	fireplace = new Entity(RLBACKGROUND, 70, 30);
 	fireplace->InitSprite(61, 69);
 	fireplace->setColors(ALPHACOLOR, ALPHACOLOR, ALPHACOLOR, ALPHACOLOR);
@@ -198,7 +200,7 @@ void Level1::Start()
 	bg[21]->setBackgrounds(BBASERED, BBASEGREY, BBASEWHITE, BBASEBLACK);
 	bg[22]->setBackgrounds(BBASERED, BBASEGREY, BBASEWHITE, BBASEBLACK);
 	bg[23]->setBackgrounds(BBASERED, BBASEGREY, BBASEWHITE, BBASEBLACK);
-
-
+	spritesHolder.push_back(sprites);
+	rlUtilJM::ShouldClearScreen(true);
 
 }

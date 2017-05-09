@@ -17,4 +17,7 @@ private:
 	Entity* girl;
 	std::vector<Entity*> bg;
 	std::vector<int**> sprites;
+	ColorPalette test;
+	bool isKeyPressed = true;
+	int count = 0;
 };
