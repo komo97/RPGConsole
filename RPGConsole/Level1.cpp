@@ -59,9 +59,12 @@ void Level1::Update()
 	//	rlUtilJM::ShouldClearScreen(true);
 	//}
 	//else rlUtilJM::ShouldClearScreen(true);
-	//for (int i = 16; i-- > 1;)
-	//	test.SetColorRGB(i, rand() % 255, rand() % 255, rand() % 255);
- //	rlUtilJM::ChangeColorPalette(test);
+	test.SetColorRGB(0,236,34,0);
+	test.SetColorRGB(1, 0, 17, 0);
+	test.SetColorRGB(2, 74, 65, 86);
+	test.SetColorRGB(89, 79, 55, 0);
+
+ 	rlUtilJM::ChangeColorPalette(test);
 }
 
 void Level1::Draw()

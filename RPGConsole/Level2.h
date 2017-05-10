@@ -13,11 +13,14 @@ protected:
 private:
 	std::vector<int**> sprites;
 	Entity* player;
+	Entity* background;
 	std::vector<Entity*> platforms;
 	int count = 0;
-	int gravity = 0;
+	float gravity = 0;
 	int jumpForce = 5;
-	int jump = 0;
+	float jump = 0;
 	bool isGrounded = false;
+	bool isJumping = false;
+	bool isDead = false;
 };
 
